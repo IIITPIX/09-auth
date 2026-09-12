@@ -1,6 +1,6 @@
 import css from "./NoteForm.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addNotes } from "../../lib/api";
+import { addNotes } from "../../lib/api/clientApi";
 import {
   selectClearDraft,
   selectGetDraft,
