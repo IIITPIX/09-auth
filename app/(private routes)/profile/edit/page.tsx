@@ -4,7 +4,10 @@ import css from "./EditProfilePage.module.css";
 import { updateMe } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { boolean } from "yup";
+import { useState } from "react";
 export default function EditProfile() {
+  const [isError, setIsError] = useState<boolean>(false);
   const userData = useAuthStore((state) => state.user);
   const setUserData = useAuthStore((state) => state.setUser);
   const router = useRouter();
@@ -16,7 +19,7 @@ export default function EditProfile() {
       setUserData(data);
       router.push("/profile");
     } catch {
-      console.log("something went wrong");
+      setIsError(true);
     }
   };
   return (
@@ -47,9 +50,9 @@ export default function EditProfile() {
 
           <p>Email:</p>
           <input
-            id="username"
+            id="email"
             type="text"
-            name="username"
+            name="email"
             defaultValue={userData?.email}
             className={css.input}
             readOnly
@@ -67,6 +70,7 @@ export default function EditProfile() {
               Cancel
             </button>
           </div>
+          {isError && <p>something went wrong</p>}
         </form>
       </div>
     </main>
