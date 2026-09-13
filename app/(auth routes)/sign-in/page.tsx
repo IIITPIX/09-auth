@@ -3,8 +3,8 @@ import { login } from "@/lib/api/clientApi";
 import css from "./SignInPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ApiError } from "@/app/api/api";
 import { useAuthStore } from "@/lib/store/authStore";
+import { ApiError } from "@/types/error";
 
 export default function SignIn() {
   const [error, setError] = useState<String | null>(null);

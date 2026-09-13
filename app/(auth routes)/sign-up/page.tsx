@@ -4,8 +4,8 @@ import { register } from "@/lib/api/clientApi";
 import css from "./SignUpPage.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ApiError } from "@/app/api/api";
 import { useAuthStore } from "@/lib/store/authStore";
+import { ApiError } from "@/types/error";
 
 export default function SignUpPage() {
   const [error, setError] = useState<String | null>(null);

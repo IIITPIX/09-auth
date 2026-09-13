@@ -73,7 +73,7 @@ export async function register({
   email,
   password,
 }: RegisterProps): Promise<User> {
-  const { data } = await nextApi.post<User>("auth/register", {
+  const { data } = await nextApi.post<User>("/auth/register", {
     email: email,
     password: password,
   });
@@ -111,15 +111,10 @@ export async function logout() {
 }
 
 interface UpdateMeProps {
-  email?: string;
   username: string;
 }
-export async function updateMe({
-  email,
-  username,
-}: UpdateMeProps): Promise<User> {
+export async function updateMe({ username }: UpdateMeProps): Promise<User> {
   const { data } = await nextApi.patch<User>("/users/me", {
-    email: email,
     username: username,
   });
   return data;

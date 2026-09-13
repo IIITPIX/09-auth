@@ -3,14 +3,16 @@ import { useAuthStore } from "@/lib/store/authStore";
 import css from "./EditProfilePage.module.css";
 import { updateMe } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useState } from "react";
 export default function EditProfile() {
   const userData = useAuthStore((state) => state.user);
   const setUserData = useAuthStore((state) => state.setUser);
   const router = useRouter();
-  const handleSubmit = async (formData: FormData) => {
-    const newUserName = formData.get("username") as string;
+  const [userName, setUserName] = useState<string>(userData?.username || "");
+  const handleSubmit = async () => {
     try {
-      const data = await updateMe({ username: newUserName });
+      const data = await updateMe({ username: userName });
       setUserData(data);
       router.push("/profile");
     } catch {
@@ -22,8 +24,8 @@ export default function EditProfile() {
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
-        <img
-          src={userData?.avatar}
+        <Image
+          src={userData?.avatar as string}
           alt="User Avatar"
           width={120}
           height={120}
@@ -32,11 +34,13 @@ export default function EditProfile() {
 
         <form className={css.profileInfo} action={handleSubmit}>
           <div className={css.usernameWrapper}>
-            <label htmlFor="username">Username:{userData?.username}</label>
+            <label htmlFor="username">Username:{userName}</label>
             <input
               id="username"
               type="text"
               name="username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               className={css.input}
             />
           </div>
