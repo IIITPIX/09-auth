@@ -45,7 +45,15 @@ export default function EditProfile() {
             />
           </div>
 
-          <p>Email: user_email@example.com</p>
+          <p>Email:</p>
+          <input
+            id="username"
+            type="text"
+            name="username"
+            defaultValue={userData?.email}
+            className={css.input}
+            readOnly
+          />
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
